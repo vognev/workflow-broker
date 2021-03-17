@@ -1,0 +1,8 @@
+POST http://localhost:3000/
+Content-Type: application/json
+
+{"automation": "e2e-20", "run":  1, "status":  "failure"}
+
+###
+
+GET http://localhost:3000/test

@@ -1,0 +1,17 @@
+name: 'Workflow Broker'
+description: 'Toolkit for waiting for workflows'
+inputs:
+  broker_url:
+    description: 'broker url'
+    required: true
+  workflow_id:
+    description: 'workflow id'
+    required: true
+  job_status:
+    description: 'Job status'
+  wait:
+    desctiption: 'Wait instead'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+  post: 'dist/index.js'

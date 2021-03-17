@@ -1,0 +1,19 @@
+{
+  "name": "workflow-broker",
+  "version": "1.0.0",
+  "scripts": {
+    "broker": "node broker.js",
+    "build": "ncc build index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0",
+    "axios": "^0.21.1",
+    "consola": "^2.15.3",
+    "koa": "^2.13.1",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^10.0.0",
+    "lru-cache": "^6.0.0"
+  }
+}
