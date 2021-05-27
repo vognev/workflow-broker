@@ -25,7 +25,7 @@ async function started() {
   try {
     await axios.post(`${brokerUrl}/`, {
       automation: workflowId,
-      repository: github.context.repo,
+      repository: `${github.context.repo.owner}/${github.context.repo.repo}`,
       run: {
         id: github.context.runId,
         number: github.context.runNumber,
@@ -45,7 +45,7 @@ async function finished() {
   try {
     await axios.post(`${brokerUrl}/`, {
       automation: workflowId,
-      repository: github.context.repo,
+      repository: `${github.context.repo.owner}/${github.context.repo.repo}`,
       run: {
         id: github.context.runId,
         number: github.context.runNumber,
