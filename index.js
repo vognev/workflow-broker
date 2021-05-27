@@ -25,7 +25,11 @@ async function started() {
   try {
     await axios.post(`${brokerUrl}/`, {
       automation: workflowId,
-      run: github.context.runNumber,
+      repository: github.context.repo,
+      run: {
+        id: github.context.runId,
+        number: github.context.runNumber,
+      },
       status: 'started'
     });
   } catch (e) {
@@ -41,7 +45,11 @@ async function finished() {
   try {
     await axios.post(`${brokerUrl}/`, {
       automation: workflowId,
-      run: github.context.runNumber,
+      repository: github.context.repo,
+      run: {
+        id: github.context.runId,
+        number: github.context.runNumber,
+      },
       status
     });
   } catch (e) {
@@ -71,7 +79,11 @@ async function wait() {
     }
   } while (await sleep(DELAY));
 
-  console.info(`Workflow data: ${JSON.stringify(data)}`)
+  if (data.repository && data.run && data.run.id) {
+    console.info(`Workflow url: https://github.com/${data.repository}/actions/runs/${data.run.id}`)
+  } else {
+    console.info(`Workflow data: ${JSON.stringify(data)}`)
+  }
 
   do {
     if ('success' === data.status) {
@@ -86,7 +98,11 @@ async function wait() {
       return;
     }
 
-    core.info('Still waiting for workflow to finish');
+    if (data.repository && data.run && data.run.id) {
+      console.info(`Still waiting for https://github.com/${data.repository}/actions/runs/${data.run.id} to finish`)
+    } else {
+      core.info('Still waiting for workflow to finish');
+    }
   } while (await sleep(DELAY));
 }
 

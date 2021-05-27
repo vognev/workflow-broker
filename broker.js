@@ -11,15 +11,15 @@ const cache = new LRU({
 });
 
 router.post('/', async ctx => {
-  const { automation, run, status } = ctx.request.body
+  const { automation, run, status, repository } = ctx.request.body
 
   if (! automation || ! run || ! status) {
     ctx.throw(400);
   }
 
-  cache.set(automation, {run, status});
+  cache.set(automation, {run, repository, status});
 
-  ctx.body = { automation, run, status };
+  ctx.body = { automation, run, repository, status };
 });
 
 router.get('/:automation', async ctx => {
