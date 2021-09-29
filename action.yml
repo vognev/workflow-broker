@@ -9,8 +9,12 @@ inputs:
     required: true
   job_status:
     description: 'Job status'
+  report:
+    description: 'Force report certain stage'
+    required: false
   wait:
-    desctiption: 'Wait instead'
+    description: 'Wait instead'
+    required: false
 runs:
   using: 'node12'
   main: 'dist/index.js'

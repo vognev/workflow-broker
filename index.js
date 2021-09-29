@@ -5,6 +5,7 @@ const axios      = require('axios');
 const brokerUrl  = core.getInput('broker_url');
 const workflowId = core.getInput('workflow_id');
 const isWait     = core.getInput('wait');
+const report     = core.getInput('report');
 const DELAY      = 30;
 
 const IsPost = core.getState('isPost');
@@ -14,6 +15,11 @@ if (! IsPost) {
 
 if (! workflowId) {
   core.info('Exiting since workflow_id is empty');
+  return;
+}
+
+if (report && report != 'started' && report != 'finished') {
+  core.info("Report given with unknown value");
   return;
 }
 
@@ -111,8 +117,16 @@ if (isWait) {
   return;
 }
 
+if ('started' == report) {
+  return started();
+}
+
+if ('finished' == report) {
+  return finished();
+}
+
 if (! IsPost) {
-  started();
+  return started();
 } else {
-  finished();
+  return finished();
 }
